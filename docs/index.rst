@@ -43,6 +43,55 @@ Three main stages of development
 
 
 
+Install
+=======
+
+Some notes, to be tidied up. - mostly from https://salt-cloud.readthedocs.org/en/latest/topics/rackspace.html
+
+Installing salt onto ubunutu 12.04::
+
+  sudo apt-get -y install python-software-properties
+  sudo add-apt-repository -y ppa:saltstack/salt
+  sudo apt-get update
+
+  sudo apt-get -y install salt-master
+  sudo apt-get -y install salt-minion
+  sudo apt-get -y install salt-cloud
+  ## delete as applicable
+
+We now have a salt-master on a host, lets put salt-cloud up
+
+`/etc/salt/cloud.providers.d/rackspace.conf` needs to have the following added
+
+::
+
+    my-rackspace-config:
+      # Set the location of the salt-master
+      #
+      minion:
+        master: saltmaster.example.com
+
+      # Configure Rackspace using the OpenStack plugin
+      #
+      identity_url: 'https://identity.api.rackspacecloud.com/v2.0/tokens'
+      compute_name: cloudServersOpenStack
+      protocol: ipv4
+
+      # Set the compute region:
+      #
+      compute_region: DFW
+
+      # Configure Rackspace authentication credentials
+      #
+      user: myname
+      tenant: 123456
+      apikey: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+      provider: openstack
+
+  
+
+
 Contents
 
 .. toctree::
