@@ -1,0 +1,25 @@
+%(provider-ref)s:
+  # Set the location of the salt-master
+  #
+  minion:
+    master: %(masterfqdn)s
+
+  # Configure Rackspace using the OpenStack plugin
+  #
+  identity_url: 'https://lon.identity.api.rackspacecloud.com/v2.0/tokens'
+  compute_name: cloudServersOpenStack
+  protocol: ipv4
+
+
+  # Set the compute region:
+  #
+  compute_region: LON
+
+  # Configure Rackspace authentication credentials
+  #
+  user: %(userid)s
+  tenant: %(tenantid)s
+  apikey: %(apikey)s
+
+  provider: openstack
+
