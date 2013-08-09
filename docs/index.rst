@@ -125,7 +125,9 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   salt-cloud
-   holodeck
-   tester
+
+   first_module
+   improving_modules
+   principles_of_immutable_salt
+   salt_and_state
 
