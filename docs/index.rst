@@ -1,14 +1,18 @@
 HoloDeck
 ========
 
-Holodeck is based on the `rant <http://hynek.me/articles/python-app-deployment-with-native-packages/>`_ of Python Core Committer Hynek Schlawack.
+Holodeck is based on the `rant
+<http://hynek.me/articles/python-app-deployment-with-native-packages/>`_ of
+Python Core Committer Hynek Schlawack.
 
 It also owes a lot to `parcel <parcel.readthedocs.org>`_ - not necessarily that
 any of the codebase is the same but for the sheer get on and do it.  Sadly, I
 could not muster the energy to cross the hg/git divide so instead of
 contributing patches I simply redid.
 
-HoloDeck is an attempt at a pun - the core idea is to wrap up an entire virtualenv and pass it from host to host.  In other words we `enclose virtual environments.`  I never said it was a good pun.
+HoloDeck is an attempt at a pun - the core idea is to wrap up an entire
+virtualenv and pass it from host to host.  In other words we `enclose virtual
+environments.` I never said it was a good pun.
 
 The problem
 -----------
@@ -43,8 +47,8 @@ Three main stages of development
 
 
 
-Install
-=======
+Install salt-master
+===================
 
 Some notes, to be tidied up. - mostly from https://salt-cloud.readthedocs.org/en/latest/topics/rackspace.html
 
@@ -89,7 +93,31 @@ We now have a salt-master on a host, lets put salt-cloud up
 
       provider: openstack
 
-  
+
+Bring up our first minion
+-------------------------
+
+
+::
+
+  sudo salt-cloud -p openstack_512 myinstance
+
+We are telling salt-cloud to create a minion, using the openstack_512 profile 
+defined above, and the provider details, and call that minion myinstance.
+
+When it exists we can do lots of fun things with the minion, from salt-master.
+
+::
+
+  171  salt '*' test.ping
+  172  sudo salt '*' test.ping
+  173  sudo salt 'myinstance' test.ping
+  174  sudo salt 'myinstance' sys.doc
+  175  sudo salt 'myinstance' timezone.get_zone
+  176  sudo salt 'myinstance' cmd.run 'ls -l /tmp'
+  177  sudo salt 'myinstance' pkg.install emacs
+
+
 
 
 Contents
