@@ -1,5 +1,5 @@
 Salt and State
---------------
+==============
 
 Recap
 -----
@@ -47,4 +47,62 @@ But that would be the *old-way*.
 
 So now we manage state with config files, and let the minion work out how to get there.
 
+I would recommend reading this now, or very soon http://docs.saltstack.com/ref/states/
 
+top.sls
+-------
+
+The top file determines which state files are going to be synched with which minions.
+
+/srv/salt/top.sls::
+
+   base:
+     '*':
+        - nginx
+
+Now, that means every machine we have will get nginx installed on it (maybe not great)
+Next we need to define the nginx *state* that we want.
+
+
+/srv/salt/nginx/init.sls file::
+
+   $ ls /srv/salt/nginx/
+   init.sls  nginx.conf
+
+/srv/salt/nginx/init.sls::
+
+    nginx:
+      pkg:
+        - installed
+      service:
+        - running
+        - enable: True
+        - require:
+          - pkg: nginx
+        - watch:
+          - file: /etc/nginx/nginx.conf
+
+    /etc/nginx/nginx.conf:
+      file.managed:
+        - source: salt://nginx/nginx.conf
+
+/srv/salt/nginx/nginx.conf::
+
+    user www-data;
+    worker_processes 4;
+    pid /var/run/nginx.pid;
+
+    events {
+           worker_connections
+    ...
+
+
+Now we install it::
+
+    <salt-master>$ sudo salt 'myinstance' state.highstate
+
+And after a while we can visit the host in a browser:
+
+
+.. figure::  https://raw.github.com/mikadosoftware/screengrab/master/screenshots/salt-nginx.png
+   :width: 25 %

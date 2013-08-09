@@ -13,10 +13,6 @@ Need to upgrade nginx, then your SaaS app needs to get pulled off v.1.2.3 server
 
 You do *not* upgrade nginx in-situ.
 
-
 Thats it really.
-
-So how to do it?
-================
 
 
