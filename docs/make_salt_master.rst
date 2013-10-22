@@ -20,9 +20,26 @@ Installing salt onto ubunutu 12.04::
 
 We now have a salt-master on a host, lets put salt-cloud up
 
-`/etc/salt/cloud.providers.d/rackspace.conf` needs to have the following added
+Basic Directory Layout 
+----------------------
 
-::
+There are two directorys to worry about
+
+* /etc/salt - basic config for both cloud, master, minion
+* /srv/salt - location of all the files we are going to put on minion. (Its more complex than that but thats the simplest explantion)
+
+configure the cloud
+-------------------
+
+In `/etc/salt` we want to create / adjust two files, `/etc/salt/cloud.providers`
+holds credentials and identifiers for our cloud account.  `/etc/salt/cloud.profiles` 
+
+
+
+salt-cloud is going through a revamp of it's configuration, and the new stuff is not quite ready for prime time.  This works to date.
+
+
+`/etc/salt/cloud.providers` ::
 
     my-rackspace-config:
       # Set the location of the salt-master
@@ -49,16 +66,27 @@ We now have a salt-master on a host, lets put salt-cloud up
       provider: openstack
 
 
+`/etc/salt/cloud.profiles`::
+
+    mikado_512:
+        provider: mikado-rackspace
+        size: 512MB Standard Instance
+        image: Ubuntu 12.04 LTS (Precise Pangolin)
+
+I have linked this minimal profile called mikado_512, to the rackspace account
+mikado-rackspace, with the sizes and images configured from (tbd).
+
+
 Bring up our first minion
 -------------------------
 
 
 ::
 
-  sudo salt-cloud -p openstack_512 myinstance
+  sudo salt-cloud -p mikado_512 minone
 
-We are telling salt-cloud to create a minion, using the openstack_512 profile 
-defined above, and the provider details, and call that minion myinstance.
+We are telling salt-cloud to create a minion, using the mikado_512 profile 
+defined above, and the provider details, and call that minion minone.
 
 When it exists we can do lots of fun things with the minion, from salt-master.
 
