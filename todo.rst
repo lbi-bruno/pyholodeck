@@ -4,6 +4,11 @@
 
 
 We need to run the venv python binary, from within the folder holding setup.py to do an install
+Then we can verify the venv holds the package by looking at venv's site-packages
+
+
+Now we create the fpm deb
+
 
 
 eatmydata - this is an *advanced* utility that will turn off fync() calls - thus any process that makes build files in memory, 
