@@ -3,6 +3,9 @@
 * 
 
 
+We need to run the venv python binary, from within the folder holding setup.py to do an install
+
+
 eatmydata - this is an *advanced* utility that will turn off fync() calls - thus any process that makes build files in memory, 
 or syncs files to disk when really we only care about the final output, not recvoiering, can spped up - estiamtes by 1/3.
 http://people.skolelinux.org/pere/blog/Speeding_up_the_Debian_installer_using_eatmydata_and_dpkg_divert.html
