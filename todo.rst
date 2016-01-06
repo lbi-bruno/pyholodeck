@@ -1,5 +1,7 @@
 
 Goals
+=====
+
 To define a process and automated tool (deb-build-app) to 
 
 * work on a target host OS
@@ -23,10 +25,32 @@ The difficult part is getting the list, and thats a developer responsibility.
 
 Extract the (git) source code
 -----------------------------
+This will mean wrapping git - Popen will do for now, but we should look at moving to calling ansible plays?
+We can then do any further adjustments to the source code (compile LESS?)
+
+Prepare a Venv
+--------------
+
+The basic plan is to build a directory holding a venv, which
+Holds a complete python interpreter and libraries, as well
+As holding (in site-packages) the various their party pip libraries 
+We pulled in and out specific code.  All this is under one directory.
+
+We then just wrap that dir in a .deb file, and can use it to deploy to 
+wherever we want, with standard tools.
 
 
+Build the .deb file
+-------------------
 
+This is relatively simple.  fpm does the hard work 
 
+Run pre/post install scripts
+----------------------------
+
+One script will apply the config to the /etc did in the app
+
+Maybe another will add us to supercisrd 
 
 using Ansible as a slave not a master
 -------------------------------------
