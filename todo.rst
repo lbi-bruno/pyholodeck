@@ -1,6 +1,17 @@
-* read up on packaging and distribution options
-* choose a mvp
-* 
+
+Goals
+To define a process and automated tool (deb-build-app) to 
+
+* work on a target host OS
+* prepare the build dependancies
+* extract from git the desirted source code and static files
+* prepare all as a venv
+* package the vevn as a deb
+* prepare suitable postinstall files to connect to supervisord 
+* prepare postinstall files to get correct configuration 
+
+We shall demonstrate this with a simple flask app
+
 
 
 We need to run the venv python binary, from within the folder holding setup.py to do an install
