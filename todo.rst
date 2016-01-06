@@ -13,6 +13,27 @@ To define a process and automated tool (deb-build-app) to
 We shall demonstrate this with a simple flask app
 
 
+using Ansible as a slave not a master
+-------------------------------------
+This ought to be some kind of Brian's Law by now.  A framework written in any language will eventually try to implement a crippled copy of itself in the framework, using YAML.::
+
+   - name: here, 'users' contains the above list of employees
+     mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
+     with_nested:
+       - "{{users}}"
+       - [ 'clientdb', 'employeedb', 'providerdb' ]
+
+The above is from http://docs.ansible.com/ansible/playbooks_loops.html#standard-loops and is some kind of in-playbook
+loop that, I don't know. Something to do with users.
+
+I am not 100% sure I am right but I swear that learning yet another half-baked DSL when I could just, y'know, use Python 
+or at least access the shell undernesath as the mysql-user module probably does anyway.
+
+So I prefer a different approach - where I will run Python, that will run playbooks as needed, and will probably 
+b e much much easier to read.
+
+Sort of Ansible Tower-Defence
+
 
 We need to run the venv python binary, from within the folder holding setup.py to do an install
 Then we can verify the venv holds the package by looking at venv's site-packages
