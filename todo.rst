@@ -12,10 +12,32 @@ To define a process and automated tool (deb-build-app) to
 
 We shall demonstrate this with a simple flask app
 
+target host OS
+--------------
+Leave as is for now. Need to run openstack instacnes or VMs to do that nicely.
+
+Prepare the build dependancies
+------------------------------
+Essentially this is apt-get <list of deps>
+The difficult part is getting the list, and thats a developer responsibility.
+
+Extract the (git) source code
+-----------------------------
+
+
+
+
 
 using Ansible as a slave not a master
 -------------------------------------
-This ought to be some kind of Brian's Law by now.  A framework written in any language will eventually try to implement a crippled copy of itself in the framework, using YAML.::
+This ought to be some kind of Brian's Law by now.  
+
+'''A framework written in any language will eventually try to implement a crippled copy of its own language, inside the framework, using YAML'''
+
+I first remeber seeing this in magic-Django, with those awful SQL-DSLs. SAlt does this too. Puppet is nothing but DSL.
+Its wrong. Use an API.
+
+::
 
    - name: here, 'users' contains the above list of employees
      mysql_user: name={{ item[0] }} priv={{ item[1] }}.*:ALL append_privs=yes password=foo
@@ -30,9 +52,13 @@ I am not 100% sure I am right but I swear that learning yet another half-baked D
 or at least access the shell undernesath as the mysql-user module probably does anyway.
 
 So I prefer a different approach - where I will run Python, that will run playbooks as needed, and will probably 
-b e much much easier to read.
+be much much easier to read.
 
 Sort of Ansible Tower-Defence
+
+Ansible API usage
+-----------------
+
 
 
 We need to run the venv python binary, from within the folder holding setup.py to do an install
