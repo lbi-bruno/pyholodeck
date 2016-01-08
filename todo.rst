@@ -98,3 +98,19 @@ or syncs files to disk when really we only care about the final output, not recv
 http://people.skolelinux.org/pere/blog/Speeding_up_the_Debian_installer_using_eatmydata_and_dpkg_divert.html
 
 We can tell we are in a venv buy looking at sys module - sys.prefix gives us the prefix form the bin/python back and real_prefix gives us the prefix it was when the binary was coipied over.
+
+Running daemons 
+---------------
+
+We want two approaches, to support services that have not been daemonised, and to support services that have been daemonised.
+Daemons are specific things, with handlers for SIGINT flags etc, and while we *can* wrap python scripts in handlers like we do 
+for similar CLIs, its sometimes *better* to just let the scripts run in the terminal, dumping to stdout and have something like supervisord handle the rougher edges.
+
+THis is the Haynek/12 factor app idea, and is perfectly *fine*, although it is well worth thinking how to support SIG style flags in your script.
+
+I will build supervisord under systemd (whose job it is to manage daemons) , 
+and then have supervisord run the majority of our python services, however 
+slowly migrating the more important services to their own daemonisation.
+
+
+
