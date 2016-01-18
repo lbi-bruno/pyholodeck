@@ -11,9 +11,12 @@ The build can occur on a spun up cloud server thus meaning the build
 willcorrectly target the final destination OS, no matter what your
 laptop runs.
 
-Then we can spin up a destination cloud server and using saltstack / ansible (in transition) we can deploy the package, and configure it using holo-config)
+Then we can spin up a destination cloud server and using saltstack /
+ansible (in transition) we can deploy the package, and configure it
+using holo-config)
 
-I have introduced a Docker build after this, so the final artifact can be either .deb or a docker image.   
+I have introduced a Docker build after this, so the final artifact can
+be either .deb or a docker image.
 
 This .deb file can then be taken to another server, built in the cloud
 using salt also, and installed. That way we can build our version of a
@@ -44,6 +47,15 @@ I hope this will facilitate more Python (web) packages in the
 
 
 Contents
+--------
+
+.. toctree::
+   :maxdepth: 1
+
+   holomaker
+
+Salt Notes
+----------
 
 .. toctree::
    :maxdepth: 1
@@ -55,3 +67,5 @@ Contents
    principles_of_immutable_salt
    salt_and_state
 
+
+   
