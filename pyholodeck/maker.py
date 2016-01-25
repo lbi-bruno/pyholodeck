@@ -37,8 +37,20 @@ class SubCmd(object):
             
     def __repr__(self):
         return " ".join(self.cmdlist)
-    
+
+import json
+class DeployConfig(object):
+    '''Accept json file, simple convervsion to hold it all
+       lots of very big assumptions here !
+    '''
+    def __init__(self, filepath):
+        jn = json.loads(open(filepath).read())
+        self.__dict__.update(jn)
         
+    def __repr__(self):
+        return "{} {}".format(self.__dict__['gitrepo'],
+                              self.__dict__['pkgname'])
+    
 
 class Deployment(object):
 
@@ -70,7 +82,7 @@ class Deployment(object):
 
     def __init__(self, app_name, giturl):
         self.app_name = app_name.lower()
-        self.pkg_name = 'mikado-' + self.app_name
+        self.pkg_name = self.app_name 
         self.app_path = os.path.join(self.BASE_PATH, self.app_name)
         self.venv_path = self.app_path
         #: where we will extract the git source to before runing setup
@@ -112,9 +124,13 @@ class Deployment(object):
         ):
             self.cmds.append(cmd)
 
-def demo():
-    d = Deployment('pyhello',
-                   'github:mikadosoftware/pyhelloworld.git')
+            
+def demo(fnpath):
+    dconfig = DeployConfig(fnpath)
+    print dconfig
+
+    d = Deployment(dconfig.pkgname,
+                   dconfig.pkgname)
     d.prepare_venv()
     import subprocess
     for cmd in d.cmds:
@@ -126,5 +142,11 @@ def demo():
             cmd.pythonstmt.__call__(*cmd.args)
 
 if __name__ == '__main__':
-    demo()                
+    import sys
+    args = sys.argv[1:]
+    if args:
+        pkg = args[0]
+        demo(pkg)
+    else:
+        print "need json contorl file"
 
