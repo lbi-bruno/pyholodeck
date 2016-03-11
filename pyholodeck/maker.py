@@ -12,6 +12,8 @@ todo: discvover postinst files and add as cmd switches to fpm
 todo: have some core service that postinst can call (fabric?)
 todo: chain to build servers
 
+We need to hace fpm natively installed
+
 '''
 
 import os
@@ -106,7 +108,7 @@ class Deployment(object):
                 SubCmd([self.pip_exe, 'install', '-r', 'requirements.txt']),
                 
                 SubCmd([self.python_exe, 'setup.py', 'install']),
-                SubCmd(['fpm', '-s', 'dir', '-t', 'deb', '-n',
+                SubCmd(['fpm', '-s', 'dir', '-t', 'deb', '-p', '/tmp', '-n',
                                                self.pkg_name,
                                                self.venv_path])
         ):
