@@ -8,6 +8,14 @@ Additionally I want to use SaltStack to install the applicaions etc
 into docker because the scripting of a dockerfile is ... a bit
 limited.
 
+Todo
+----
+
+1. reduce config to simplest possible
+2. run an e2e build from git src to docker, and that has a web server running in it.
+
+
+
 The overview
 ------------
 
@@ -117,9 +125,50 @@ https://docs.docker.com/engine/userguide/containers/dockerimages/
 
 
 
+Useful notes
+------------
 
+docker images
 
+list containers:
+  docker ps -a
+delete containers
+  docker rm <idNumber>
 
+list images
+  docker images
+remove images
+  docker rmi <imageID or tag>
+
+You need to remove containers that xist (started or stopped) that 
+are runing off images
+
+docker run -it <image>
+   interactive and ptty
+
+http://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile
+The ENTRYPOINT specifies a command that will always be executed when the container starts.
+
+The CMD specifies arguments that will be fed to the ENTRYPOINT.
+
+So if I use the follwoiong format for my entrypoint and cmd::
+
+  ADD startup.sh /root
+  RUN chmod 0777 /root/startup.sh
+  ENTRYPOINT ["/bin/bash", "/root/startup.sh"]
+  CMD ["Arg From Dockerfile"]
+
+and have this in /root/startup.sh::
+
+    echo "Running startup script. Args are " $1
+
+I can run these ::
+
+  $ docker run -it mikadosoftware.com/holobase:0.0.1
+  Running startup script. Args are  Arg From Dockerfile
+
+  $ docker run -it mikadosoftware.com/holobase:0.0.1 foo
+  Running startup script. Args are  foo
 
 
 

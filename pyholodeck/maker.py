@@ -15,7 +15,6 @@ todo: chain to build servers
 '''
 
 import os
-#import fabric
 import pprint
 import time
 
@@ -36,9 +35,10 @@ class SubCmd(object):
         self.args = args
             
     def __repr__(self):
-        return " ".join(self.cmdlist)
-    
-        
+        if self.pythonstmt:
+            return str(self.pythonstmt)
+        else:
+            return " ".join(self.cmdlist)
 
 class Deployment(object):
 
@@ -111,6 +111,13 @@ class Deployment(object):
                                                self.venv_path])
         ):
             self.cmds.append(cmd)
+
+
+class Docker_Salt(object):
+    '''
+    '''
+    pass
+
 
 def demo():
     d = Deployment('pyhello',
