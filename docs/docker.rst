@@ -11,8 +11,15 @@ limited.
 Todo
 ----
 
-1. reduce config to simplest possible
+1. reduce config to simplest possible DONE
 2. run an e2e build from git src to docker, and that has a web server running in it.
+
+OK - need to run saltminion docker, and then install /tmp/.deb and then setup 
+entrypoint to run it.
+Also need to think how to use salt master to run docker comands
+
+then combinemaker.py and saltmaker.py
+
 
 
 
