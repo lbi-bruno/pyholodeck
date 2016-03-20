@@ -12,10 +12,11 @@ todo: discvover postinst files and add as cmd switches to fpm
 todo: have some core service that postinst can call (fabric?)
 todo: chain to build servers
 
+We need to hace fpm natively installed
+
 '''
 
 import os
-#import fabric
 import pprint
 import time
 
@@ -36,7 +37,10 @@ class SubCmd(object):
         self.args = args
             
     def __repr__(self):
-        return " ".join(self.cmdlist)
+        if self.pythonstmt:
+            return str(self.pythonstmt)
+        else:
+            return " ".join(self.cmdlist)
 
 import json
 class DeployConfig(object):
@@ -118,19 +122,22 @@ class Deployment(object):
                 SubCmd([self.pip_exe, 'install', '-r', 'requirements.txt']),
                 
                 SubCmd([self.python_exe, 'setup.py', 'install']),
-                SubCmd(['fpm', '-s', 'dir', '-t', 'deb', '-n',
+                SubCmd(['fpm', '-s', 'dir', '-t', 'deb', '-p', '/tmp', '-n',
                                                self.pkg_name,
                                                self.venv_path])
         ):
             self.cmds.append(cmd)
 
-            
-def demo(fnpath):
-    dconfig = DeployConfig(fnpath)
-    print dconfig
 
-    d = Deployment(dconfig.pkgname,
-                   dconfig.pkgname)
+class Docker_Salt(object):
+    '''
+    '''
+    pass
+
+
+def demo():
+    d = Deployment('pyhello',
+                   'github:mikadosoftware/pyhelloworld.git')
     d.prepare_venv()
     import subprocess
     for cmd in d.cmds:
@@ -146,7 +153,7 @@ if __name__ == '__main__':
     args = sys.argv[1:]
     if args:
         pkg = args[0]
-        demo(pkg)
+        demo()
     else:
-        print "need json contorl file"
-
+        print "really develop json contorl file"
+        demo()
