@@ -194,3 +194,9 @@ Attach
 ------
 docker attach nonenetcontainer
 Note: You can detach from the container and leave it running with CTRL-p CTRL-q.
+
+
+Biblio
+------
+
+http://www.schwabenlan.de/en/blog/2014/08/07/testing-and-deploying-salt-formulas-via-docker
