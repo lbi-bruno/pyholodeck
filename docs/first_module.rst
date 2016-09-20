@@ -31,7 +31,7 @@ Synchronise from the salt-master to the minion(s)
 
 ::
 
-   salt '*' saltutils.sync_all
+   salt '*' saltutil.sync_all
         ^ 
         selects which minions
 
